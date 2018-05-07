@@ -9,17 +9,22 @@
             defaultArea: CustomizableUI.AREA_NAVBAR,
             onBuild: function(aDocument) {
                 var toolbaritem = aDocument.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'toolbaritem');
+                var image = aDocument.createElementNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'image');
+                image.setAttribute('src', 'chrome://branding/content/icon16.png');
+                image.id = 'pagetitle-bar-image';
                 var props = {
                     id: 'pagetitle-bar',
                     class: 'chromeclass-toolbar-additional',
                     titlepage: document.getElementById('main-window').getAttribute('title'),
                     //flex: '1',
                     pack: 'center', //remove this line if you dont want the text to be centered by default
-                    align: 'center'
+                    align: 'center',
+                    label: 'Page Title Bar'
                 };
                 for (var p in props) {
                     toolbaritem.setAttribute(p, props[p]);
                 }
+                toolbaritem.appendChild(image);
                 return toolbaritem;
             }
         });
@@ -40,18 +45,39 @@
     var sss = Cc['@mozilla.org/content/style-sheet-service;1'].getService(Ci.nsIStyleSheetService);
     var css = '';
     css += '@-moz-document url("chrome://browser/content/browser.xul") {';
-    css += '#pagetitle-bar {';
+    css += ':root {';
+    css += '  --pagetitle-bar-width: 250px;'; //Change this value if you want shorter/longer bar
+    css += '}';
+    css += '#main-window:not([customizing]) #pagetitle-bar {';
     css += '  -moz-window-dragging: drag;'; //Remove this line if you dont want it to be dragable
-    css += '  width: 250px;'; //Change this value if you want shorter/longer bar
+    css += '  width: var(--pagetitle-bar-width);';
     css += '  margin-bottom: 2px;'; //Change this value if you find the text appears too low or too high
     css += '  overflow: hidden;';
     css += '  text-overflow: "..";';
     css += '  white-space: nowrap;';
     css += '}';
-    css += '#pagetitle-bar::after {';
+    css += '#main-window:not([customizing]) #pagetitle-bar::after {';
     css += '  content: attr(titlepage);';
     css += '  margin-left: 10px;';
     css += '  margin-right: 10px;';
+    css += '}';
+    css += '#main-window:not([customizing]) #pagetitle-bar-image {';
+    css += '  display:none;';
+    css += '}';
+    css += '#main-window[customizing] #pagetitle-bar {';
+    css += '   margin: 12px;';
+    css += '}';
+    css += '#main-window[customizing] #nav-bar #pagetitle-bar {';
+    css += '   margin: 0;';
+    css += '}';
+    css += '#main-window[customizing] #nav-bar #pagetitle-bar {';
+    css += '   width: var(--pagetitle-bar-width);';
+    css += '}';
+    css += '#main-window[customizing] #nav-bar #pagetitle-bar-image {';
+    css += '  display:none;';
+    css += '}';
+    css += '#main-window[customizing] #nav-bar #pagetitle-bar:after {';
+    css += '  content: "Page Title Bar";';
     css += '}';
     var cssEnc = encodeURIComponent(css);
     var newURIParam = {
