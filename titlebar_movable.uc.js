@@ -14,7 +14,7 @@
                     class: 'chromeclass-toolbar-additional',
                     titlepage: document.getElementById('main-window').getAttribute('title'),
                     //flex: '1',
-                    pack: 'center',//remove this line if you dont want the text to be centered by default
+                    pack: 'center', //remove this line if you dont want the text to be centered by default
                     align: 'center'
                 };
                 for (var p in props) {
@@ -41,9 +41,9 @@
     var css = '';
     css += '@-moz-document url("chrome://browser/content/browser.xul") {';
     css += '#pagetitle-bar {';
-    css += '  -moz-window-dragging: drag;/* Remove this line if you dont want it to be dragable */';
-    css += '  width: 250px; /* Change this value if you want shorter/longer bar */';
-    css += '  margin-bottom: 2px;';
+    css += '  -moz-window-dragging: drag;'; //Remove this line if you dont want it to be dragable
+    css += '  width: 250px;'; //Change this value if you want shorter/longer bar
+    css += '  margin-bottom: 2px;'; //Change this value if you find the text appears too low or too high
     css += '  overflow: hidden;';
     css += '  text-overflow: "..";';
     css += '  white-space: nowrap;';
