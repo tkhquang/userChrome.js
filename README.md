@@ -5,7 +5,7 @@
 
 [**Movable Page Title on Toolbar**](https://github.com/tkhquang/userChrome.js/blob/master/titlebar_movable.uc.js)
 
-
+[**Duplicate tab with double-click**](https://github.com/tkhquang/userChrome.js/blob/master/dblclickDuplicateTab.uc.js)
 
 ### What is [userChrome.js](http://kb.mozillazine.org/UserChrome.js)?
 
