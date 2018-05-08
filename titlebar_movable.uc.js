@@ -1,4 +1,6 @@
 //Create a new custom toolbaritem, that has titlebar text displayed on it.
+//If you're still not sure what it does check out the below.
+//https://imgur.com/a/GHvgjzu
 
 (function() {
     if(location != 'chrome://browser/content/browser.xul') return;
