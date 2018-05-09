@@ -1,7 +1,7 @@
 # userChrome.js for Mozilla Firefox
 *The Scripts were tested on Firefox 59 stable build.*
 
-[**Auto hide tab bar only when Tree Style Tab sidebar is visible**](https://github.com/tkhquang/userChrome.js/blob/master/TST_tabbar.uc.js)
+[**Auto hide tab bar only when Tree Style Tab sidebar is selected and visible**](https://github.com/tkhquang/userChrome.js/blob/master/TST_tabbar.uc.js) --- [Gif](https://imgur.com/YSo4ZZX)
 
 [**Movable Page Title on Toolbar**](https://github.com/tkhquang/userChrome.js/blob/master/titlebar_movable.uc.js) --- If you're still not sure what it does, check out these [Gif](https://imgur.com/a/GHvgjzu), [Gif](https://imgur.com/sXZrBMb)
 
