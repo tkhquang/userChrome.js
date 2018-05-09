@@ -1,4 +1,4 @@
-//Auto hide tab bar only when Tree Style Tab sidebar is visible.
+//Auto hide tab bar only when Tree Style Tab sidebar is selected and visible.
 
 (function() {
     var tabbar = document.getElementById("TabsToolbar");
