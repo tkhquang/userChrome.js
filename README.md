@@ -5,7 +5,7 @@
 
 [**Movable Page Title on Toolbar**](https://github.com/tkhquang/userChrome.js/blob/master/titlebar_movable.uc.js) --- If you're still not sure what it does, check out these [Gif](https://imgur.com/a/GHvgjzu), [Gif](https://imgur.com/sXZrBMb)
 
-[**Duplicate tab with double-click**](https://github.com/tkhquang/userChrome.js/blob/master/dblclickDuplicateTab.uc.js) --- [Direct](https://imgur.com/aTzL16F), [Background](https://imgur.com/eMVjBdU), 
+[**Duplicate tab with double-click**](https://github.com/tkhquang/userChrome.js/blob/master/dblclickDuplicateTab.uc.js) --- [Direct](https://imgur.com/aTzL16F), [Background](https://imgur.com/eMVjBdU)
 
 ### What is [userChrome.js](http://kb.mozillazine.org/UserChrome.js)?
 
