@@ -128,7 +128,7 @@ display: none!important;
     document.getElementById("vertical-toolbar-toolbox").addEventListener("DOMMouseScroll", function (e) {
         e = window.event || e;
         var delta = Math.max(-1, Math.min(1, e.detail));
-        document.getElementById("vertical-toolbar-toolbox").scrollLeft -= (e.detail*3); //Change this value if you find the vertical scrolling is too fast or too slow
+        document.getElementById("vertical-toolbar-toolbox").scrollLeft -= (delta*20); //Change this value if you find the vertical scrolling is too fast or too slow
         e.preventDefault();
     }, false);
 
