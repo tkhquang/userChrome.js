@@ -44,7 +44,7 @@ Here are some known issues on my end:
 
 1. Sometimes when dragging the buttons in `customzing` from vertical toolbar to the out side, the whole toolbar is dragged outside. But don't worry, just restart the browser and everything will be there again, phewww! I'm not sure if there is a way to prevent it from happening, but since you can just redo it again, no harm done, just inconvenient.
 
-2. Since it's just a hack, the toolbar width is fixed, so it won't do so good it you change the size of the window browser frequently. As a work around, you can disable the toolbar when the window is not maximized.
+2. Since it's just a hack, the toolbar width is fixed, so it won't do so good if you change the size of the window browser frequently. As a workaround, you can disable the toolbar when the window is not maximized.
 
         #main-window[sizemode="normal"] #content-deck {
         border-right: 0 !important;
