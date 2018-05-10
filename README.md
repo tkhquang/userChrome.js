@@ -1,7 +1,7 @@
 # userChrome.js for Mozilla Firefox
 *The Scripts were tested on Firefox 59 stable build.*
 
-[Vertical Add-on Toolbar](https://github.com/tkhquang/userChrome.js/tree/master/Vertical%20Add-on%20Bar) --- [**Single Column with scrolling**](https://i.imgur.com/RgxgWbK.gifv), [**Multiple Columns**](https://i.imgur.com/ViDnQcc.jpg)
+[**Vertical Add-on Toolbar**](https://github.com/tkhquang/userChrome.js/tree/master/Vertical%20Add-on%20Bar) --- [**Single Column with scrolling**](https://i.imgur.com/RgxgWbK.gifv), [**Multiple Columns**](https://i.imgur.com/ViDnQcc.jpg)
 
 [**Auto hide tab bar only when Tree Style Tab sidebar is selected and visible**](https://github.com/tkhquang/userChrome.js/blob/master/TST_tabbar.uc.js) --- [Gif](https://imgur.com/YSo4ZZX)
 
