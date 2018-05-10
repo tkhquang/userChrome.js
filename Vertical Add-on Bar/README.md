@@ -53,3 +53,10 @@ Here are some known issues on my end:
         visibility: collapse!important;
         }
         
+### What is the `vertical_addonbar_m2.uc.js` file?
+
+That script is to create a toolbar that is actually vertical, you can put it before the left sidebar, or at the end of the left screen just like the main file. But since it's put there, I can't seem to find a way to drag the toolbarbutton onto it, and it's not visible when we go into `Customize` tab either. So it's useless? No really, you can use [this method](http://forums.mozillazine.org/viewtopic.php?f=38&t=3037911 ) to put items on it (of course you have to get the id of the buttons yourself), so not good at all.
+
+Alternately, you can replace the main file (after the you have put the items you want to the toolbar) with this file. Since I've made the 2 scripts that create the toolbars which share the same id, after replacing the file, the items are gonna stay there.
+
+**By the way, ONLY use ONE of the 2 files at a time.**
