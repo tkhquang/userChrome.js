@@ -20,7 +20,7 @@
 --vertical-toolbar-color: var(--toolbar-bgcolor);
 --vertical-toolbar-height: 660px;
 --vertical-toolbar-space-height: 10px;
---vertical-toolbar-col-overflow: 2; /* Multiple columns must be used with flex, wrap */
+--vertical-toolbar-col-overflow: 1; /* Multiple columns must be used with flex, wrap */
 --vertical-toolbar-icon-max-width: 34px; /* Can't be set higher than the toolbar width, only use with flex */
 }
 
@@ -106,13 +106,13 @@ background: transparent !important;
 width: 20px !important;
 }
 
-/* This is for the multiple col */
+/* This is for the multiple col *//*
 #vertical-toolbar {
 display: flex !important;
 flex-wrap: wrap !important;
 }
 
-/* This is for single col, with mouse scrolling, disable if use mul col *//*
+/* This is for single col, with mouse scrolling, disable if use mul col */
 #vertical-toolbar-toolbox {
 overflow: scroll!important;
 }
