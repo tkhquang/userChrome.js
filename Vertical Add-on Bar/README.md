@@ -46,9 +46,20 @@ Here are some known issues on my end:
 
 2. Since it's just a hack, the toolbar width is fixed, so it won't do so good if you change the size of the window browser frequently. As a workaround, you can disable the toolbar when the window is not maximized.
 
-        #main-window[sizemode="normal"] #content-deck {
-        border-right: 0 !important;
+Replace
+
+        #content-deck {
+        border-right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) solid var(--vertical-toolbar-color) !important;
         }
+
+with
+
+        #main-window[sizemode="maximized"] #content-deck {
+        border-right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) solid var(--vertical-toolbar-color) !important;
+        }
+
+and add this
+
         #main-window[sizemode="normal"] #vertical-toolbar-toolbox {
         visibility: collapse!important;
         }
