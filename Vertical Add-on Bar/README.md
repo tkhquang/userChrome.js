@@ -3,10 +3,10 @@
 
 **Single Column with scrolling**
 
-![img](https://imgur.com/XReR5hD)
+![Imgur](https://i.imgur.com/XReR5hD.jpg)
 
 **Multiple Columns**
 
-![img](https://imgur.com/ViDnQcc)
+![Imgur](https://i.imgur.com/ViDnQcc.jpg)
 
 [Screen capture gif](/)
