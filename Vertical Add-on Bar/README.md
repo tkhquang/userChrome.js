@@ -9,7 +9,7 @@
 
 ![Imgur](https://i.imgur.com/ViDnQcc.jpg)
 
-[Screen capture gif](/)
+![Screen capture gif](https://i.imgur.com/RgxgWbK.gifv)
 
 
 ### Is this really a vertical toolbar?
