@@ -58,6 +58,9 @@ Here are some known issues on my end:
             document.getElementById("vertical-toolbar-toolbox").style.width = newHeight + "px";
         });
 
+[This](https://gist.githubusercontent.com/tkhquang/4330b7042a2275914f1b0f66959c7ef1/raw/c5189b40943b056fb9b97a5a0e178deabe1b0891/vertical_addonbar_dysetheight.uc.js) is what it should look like in the end.
+
+========
 
 Or, you can just disable the toolbar when the window is not maximized.
 
