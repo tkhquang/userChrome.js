@@ -20,6 +20,9 @@
 
 Well, I wish it was. This is just a userChrome.js hack, to create a toolbar at bottom of navigator toolbox, rotate it -90deg then rotate its items to the right angle we need, so it would look like a vertical toolbar.
 
+### Can I put it on the left side?
+Yes, use the [`vertical_addonbar_left.uc.js`](https://github.com/tkhquang/userChrome.js/blob/master/Vertical%20Add-on%20Bar/vertical_addonbar_left.uc.js).
+
 ### Some other information, for your own customizing
 
         /*---Comment----*//*
@@ -56,7 +59,7 @@ Replace
         border-right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) solid var(--vertical-toolbar-color) !important;
         }
 
-with
+with these lines (if you're using left side toolbar, it's `border-left` instead)
 
         #main-window[sizemode="maximized"] #content-deck {
         border-right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) solid var(--vertical-toolbar-color) !important;
