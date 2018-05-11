@@ -1,9 +1,11 @@
 # Vertical Add-on Bar for firefox 60
 
 
-**Single Column with scrolling**
+**Single Column**
 
 ![Imgur](https://i.imgur.com/XReR5hD.jpg)
+
+![Single Column (Left side)](https://i.imgur.com/2MDNmc0.jpg)
 
 **Multiple Columns**
 
