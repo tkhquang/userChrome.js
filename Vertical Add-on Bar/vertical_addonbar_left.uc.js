@@ -24,7 +24,7 @@
 --vertical-toolbar-height: 660px;
 --vertical-toolbar-space-height: 10px;
 --vertical-toolbar-col-overflow: 1; /* Multiple columns must be used with flex, wrap */
---vertical-toolbar-icon-max-width: 34px; /* Can't be set higher than the toolbar width, only use with flex */
+--vertical-toolbar-icon-max-width: 24px; /* Should always be smaller than the toolbar width */
 }
 
 #content-deck {
@@ -45,40 +45,36 @@ position: fixed !important;
 left: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 height: var(--vertical-toolbar-width)!important;
 width: var(--vertical-toolbar-height)!important;
-transform-origin: top left !important;
-transform: rotate(90deg) !important;
+transform-origin: top right !important;
+transform: rotate(-90deg) !important;
 background-color: var(--vertical-toolbar-color) !important;
 max-height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 }
 
 #vertical-toolbar {
-padding-inline-start: var(--vertical-toolbar-space-height);
+-moz-appearance: toolbar!important;
 width: var(--vertical-toolbar-height) !important;
+padding-inline-start: var(--vertical-toolbar-space-height);
 height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 }
 
 #vertical-toolbar toolbarbutton {
+-moz-appearance: toolbarbutton!important;
 /* With space height value higher than 0 with mul col,
 or when you use mul col and have problems with icons on hover,
 disable this */
 --toolbarbutton-inner-padding: 2px !important;
 /*---*/
-transform: rotate(-90deg) !important;
+transform: rotate(90deg) !important;
 transform-origin: 50% 50% !important;
 width: var(--vertical-toolbar-width) !important;
 margin-right: var(--vertical-toolbar-space-height) !important;
 }
 
-#vertical-toolbar toolbarbutton:hover {
-background: hsla(0,0%,70%,.4)!important;
-}
-
 #vertical-toolbar toolbarbutton .toolbarbutton-icon {
-max-width: var(--vertical-toolbar-icon-max-width)!important;
-max-height: var(--vertical-toolbar-icon-max-width)!important;
-min-width: calc(var(--vertical-toolbar-width) / 2 )!important;
-min-height: calc(var(--vertical-toolbar-width) / 2 )!important;
-padding: 0 !important;
+width: var(--vertical-toolbar-icon-max-width) !important;
+height: var(--vertical-toolbar-icon-max-width) !important;
+background-color: transparent !important;
 }
 
 /* This transforms flexiple spaces to seperators
@@ -130,7 +126,7 @@ display: none!important;
 
     document.getElementById("vertical-toolbar-toolbox").addEventListener("DOMMouseScroll", function(e) {
         e = window.event || e;
-        var delta = Math.max(-1, Math.min(1, -e.detail));
+        var delta = Math.max(-1, Math.min(1, e.detail));
         document.getElementById("vertical-toolbar-toolbox").scrollLeft -= (delta*20); //Change this value if you find the vertical scrolling is too fast or too slow
         e.preventDefault();
     }, false);
