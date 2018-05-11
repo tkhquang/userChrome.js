@@ -51,7 +51,15 @@ Here are some known issues on my end:
 
 1. Sometimes when dragging the buttons in `customzing` from vertical toolbar to the out side, the whole toolbar is dragged outside. But don't worry, just restart the browser and everything will be there again, phewww! I'm not sure if there is a way to prevent it from happening, but since you can just redo it again, no harm done, just inconvenient.
 
-2. Since it's just a hack, the toolbar width is fixed, so it won't do so good if you change the size of the window browser frequently. As a workaround, you can disable the toolbar when the window is not maximized.
+2. Since it's just a hack, the toolbar width is fixed, so it won't do so good if you change the size of the window browser frequently. As a workaround, you can add these lines before the `})();` at the end of the script if you just use single column with scrolling, this will set the height of the toolbar dynamically whenever the window is resized. This may cause issue if you use multiple columns, I'm still thinking about a way to fix this.
+
+        window.addEventListener("resize", function() {
+            var newHeight = document.getElementById("content-deck").clientHeight;
+            document.getElementById("vertical-toolbar-toolbox").style.width = newHeight + "px";
+        });
+
+
+Or, you can just disable the toolbar when the window is not maximized.
 
 Replace
 
