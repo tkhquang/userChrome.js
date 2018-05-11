@@ -42,7 +42,7 @@ And
 That said. you will stll have to be careful about the opening tags, and closing tags `{  }`, otherwise your custom style would be messed up.
 
 Basically, everything is explained in the script itself, but at least you should change the things in the `:root {}` block to suite your needs.
-The default config is for single column, if you want multiple column then you have to change some rules under that (just comment out the rules for single column then remove the `/*` at the beginning of the rules for multiple columns as stated above.
+The default config is for single column, if you want multiple columns then you have to change some rules under that (just comment out the rules for single column then remove the `/*` at the beginning of the rules for multiple columns as stated above.
 
 ## Issues
 
