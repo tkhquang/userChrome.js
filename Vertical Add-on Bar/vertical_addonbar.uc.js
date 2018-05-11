@@ -1,3 +1,4 @@
+//vertical_addonbar.uc.js
 (function() {
     if (location != "chrome://browser/content/browser.xul") return;
 
@@ -12,16 +13,18 @@
     var navToolBox = document.getElementById("navigator-toolbox");
     navToolBox.parentNode.insertBefore(toolbox, navToolBox.nextSibling);
     toolbox.appendChild(toolbar);
-    CustomizableUI.registerArea("vertical-toolbar", { legacy: true });
+    CustomizableUI.registerArea("vertical-toolbar", {
+        legacy: true
+    });
 
-    var css =`
+    var css = `
 :root {
 --vertical-toolbar-width: 34px;
 --vertical-toolbar-color: var(--toolbar-bgcolor);
 --vertical-toolbar-height: 660px;
 --vertical-toolbar-space-height: 10px;
 --vertical-toolbar-col-overflow: 1; /* Multiple columns must be used with flex, wrap */
---vertical-toolbar-icon-max-width: 34px; /* Can't be set higher than the toolbar width, only use with flex */
+--vertical-toolbar-icon-max-width: 24px; /* Should always be smaller than the toolbar width */
 }
 
 #content-deck {
@@ -49,12 +52,14 @@ max-height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-over
 }
 
 #vertical-toolbar {
--moz-appearance: toolbar;
+-moz-appearance: toolbar!important;
+width: var(--vertical-toolbar-height) !important;
 padding-inline-start: var(--vertical-toolbar-space-height);
 height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 }
 
 #vertical-toolbar toolbarbutton {
+-moz-appearance: toolbarbutton!important;
 /* With space height value higher than 0 with mul col,
 or when you use mul col and have problems with icons on hover,
 disable this */
@@ -66,16 +71,10 @@ width: var(--vertical-toolbar-width) !important;
 margin-left: var(--vertical-toolbar-space-height) !important;
 }
 
-#vertical-toolbar toolbarbutton:hover {
-background: hsla(0,0%,70%,.4)!important;
-}
-
 #vertical-toolbar toolbarbutton .toolbarbutton-icon {
-max-width: var(--vertical-toolbar-icon-max-width)!important;
-max-height: var(--vertical-toolbar-icon-max-width)!important;
-min-width: calc(var(--vertical-toolbar-width) / 2 )!important;
-min-height: calc(var(--vertical-toolbar-width) / 2 )!important;
-padding: 0 !important;
+width: var(--vertical-toolbar-icon-max-width) !important;
+height: var(--vertical-toolbar-icon-max-width) !important;
+background-color: transparent !important;
 }
 
 /* This transforms flexiple spaces to seperators
@@ -99,7 +98,7 @@ margin-right: 3px !important;
 
 /* This edit the width of the flexiple spaces when put into vertical bar,
 choose between this and the above one,
-or not at all, lol */
+or nothing at all */
 
 #vertical-toolbar toolbarspring {
 background: transparent !important;
@@ -125,7 +124,7 @@ display: none!important;
     var uri = makeURI('data:text/css;charset=UTF=8,' + encodeURIComponent(css));
     sss.loadAndRegisterSheet(uri, sss.AGENT_SHEET);
 
-    document.getElementById("vertical-toolbar-toolbox").addEventListener("DOMMouseScroll", function (e) {
+    document.getElementById("vertical-toolbar-toolbox").addEventListener("DOMMouseScroll", function(e) {
         e = window.event || e;
         var delta = Math.max(-1, Math.min(1, e.detail));
         document.getElementById("vertical-toolbar-toolbox").scrollLeft -= (delta*20); //Change this value if you find the vertical scrolling is too fast or too slow
