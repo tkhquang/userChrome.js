@@ -45,7 +45,7 @@ position: fixed !important;
 left: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 height: var(--vertical-toolbar-width)!important;
 width: var(--vertical-toolbar-height)!important;
-transform-origin: top right !important;
+transform-origin: top left !important;
 transform: rotate(-90deg) !important;
 background-color: var(--vertical-toolbar-color) !important;
 max-height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
