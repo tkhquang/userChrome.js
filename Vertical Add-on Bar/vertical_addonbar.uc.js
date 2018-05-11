@@ -49,8 +49,8 @@ max-height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-over
 }
 
 #vertical-toolbar {
+-moz-appearance: toolbar;
 padding-inline-start: var(--vertical-toolbar-space-height);
-width: var(--vertical-toolbar-height) !important;
 height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 }
 
