@@ -58,7 +58,30 @@ Here are some known issues on my end:
             document.getElementById("vertical-toolbar-toolbox").style.width = newHeight + "px";
         });
 
-[This](https://gist.github.com/tkhquang/4330b7042a2275914f1b0f66959c7ef1) is what it should look like in the end.
+[This](https://gist.github.com/tkhquang/4330b7042a2275914f1b0f66959c7ef1) is what it should look like in the end. However, when you toggle another toolbar, like menubar or bookmark bar, obviously, the height of the vertical toolbox should be changed, but in this case it wont, because the above code is just for window resize observation. You can, however, make everything work fine by replacing the above code with these lines:
+    
+        var setHeight = function setHeight(){
+            document.getElementById("vertical-toolbar-toolbox").style.width = document.getElementById("content-deck").clientHeight + "px";
+        };
+    
+        function observeHeightChange(elm, callback){
+            var lastHeight = elm.clientHeight, newHeight;
+            (function run(){
+                newHeight = elm.clientHeight;
+                if( lastHeight != newHeight ) {
+                    callback();
+                    lastHeight = newHeight;
+                }
+                if( elm.observeHeightChangeTimer ) {
+                    clearTimeout(elm.observeHeightChangeTimer);
+                }
+                elm.observeHeightChangeTimer = setTimeout(run, 200);
+            })();
+        }
+    
+        observeHeightChange(document.getElementById("content-deck"), setHeight);
+
+While it indeed works ok, the script is running constantly and not good for performance, so I'd say this is just a workaround for the issue.
 
 ========
 
