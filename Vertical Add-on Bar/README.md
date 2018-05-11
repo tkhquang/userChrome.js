@@ -5,7 +5,9 @@
 
 ![Imgur](https://i.imgur.com/XReR5hD.jpg)
 
-![Single Column (Left side)](https://i.imgur.com/2MDNmc0.jpg)
+**Single Column (Left side)**
+
+![Imgur](https://i.imgur.com/2MDNmc0.jpg)
 
 **Multiple Columns**
 
