@@ -1,4 +1,5 @@
 //vertical_addonbar.uc.js
+//Left + Multi columns on window maximized 
 (function() {
     if (location != "chrome://browser/content/browser.xul") return;
 
@@ -68,9 +69,10 @@ height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow
 }
 
 #vertical-toolbar {
--moz-appearance: toolbar!important;
+-moz-appearance: toolbar!important; /* Remove this if your custom color won't apply */
 padding-inline-start: var(--vertical-toolbar-space-height);
 height: var(--vertical-toolbar-width) !important;
+background-color: var(--vertical-toolbar-color) !important;
 }
 
 #main-window[sizemode="maximized"] #vertical-toolbar {
