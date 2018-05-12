@@ -20,12 +20,21 @@
     var css = `
 :root {
 --vertical-toolbar-width: 34px;
---vertical-toolbar-color: var(--toolbar-bgcolor);
---vertical-toolbar-height: 660px;
+/* Change the below to the color you need,
+you can find a color picker to hex code in this link:
+https://www.w3schools.com/colors/colors_picker.asp */
+--vertical-toolbar-color: #202020;
 --vertical-toolbar-space-height: 10px;
---vertical-toolbar-col-overflow: 1; /* Multiple columns must be used with flex, wrap */
+--vertical-toolbar-col-overflow: 2;
 --vertical-toolbar-icon-max-width: 24px; /* Should always be smaller than the toolbar width */
 }
+
+/* If you harly see the icon,
+due to its color matchs the toolbar color, try this *//*
+#vertical-toolbar toolbarbutton {
+filter: invert(65%) !important;
+}
+/*---*/
 
 #content-deck {
 border-right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) solid var(--vertical-toolbar-color) !important;
@@ -43,21 +52,17 @@ visibility: collapse !important;
 direction: rtl !important;
 position: fixed !important;
 right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
-height: var(--vertical-toolbar-width)!important;
-width: var(--vertical-toolbar-height)!important;
 transform-origin: top right !important;
 transform: rotate(-90deg) !important;
 background-color: var(--vertical-toolbar-color) !important;
-max-height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
+height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 }
 
 #vertical-toolbar {
 -moz-appearance: toolbar!important;
-width: var(--vertical-toolbar-height) !important;
 padding-inline-start: var(--vertical-toolbar-space-height);
 height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 }
-
 #vertical-toolbar toolbarbutton {
 -moz-appearance: toolbarbutton!important;
 /* With space height value higher than 0 with mul col,
@@ -67,11 +72,23 @@ disable this */
 /*---*/
 transform: rotate(90deg) !important;
 transform-origin: 50% 50% !important;
+width: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
+margin-left: var(--vertical-toolbar-space-height) !important;
+}
+
+#main-window[sizemode="maximized"] #vertical-toolbar toolbarbutton {
+-moz-appearance: toolbarbutton!important;
 width: var(--vertical-toolbar-width) !important;
 margin-left: var(--vertical-toolbar-space-height) !important;
 }
 
 #vertical-toolbar toolbarbutton .toolbarbutton-icon {
+width: var(--vertical-toolbar-icon-max-width) !important;
+height: var(--vertical-toolbar-icon-max-width) !important;
+background-color: transparent !important;
+}
+
+#main-window[sizemode="maximized"] #vertical-toolbar toolbarbutton .toolbarbutton-icon {
 width: var(--vertical-toolbar-icon-max-width) !important;
 height: var(--vertical-toolbar-icon-max-width) !important;
 background-color: transparent !important;
@@ -105,17 +122,14 @@ background: transparent !important;
 width: 20px !important;
 }
 
-/* This is for the multiple col *//*
-#vertical-toolbar {
+#main-window[sizemode="maximized"] #vertical-toolbar {
 display: flex !important;
 flex-wrap: wrap !important;
 }
 
-/* This is for single col, with mouse scrolling, disable if use mul col */
-#vertical-toolbar-toolbox {
+#main-window[sizemode="normal"] #vertical-toolbar-toolbox {
 overflow: scroll!important;
 }
-/*---*/
 
 #vertical-toolbar-toolbox scrollbar {
 display: none!important;
@@ -124,11 +138,19 @@ display: none!important;
     var uri = makeURI('data:text/css;charset=UTF=8,' + encodeURIComponent(css));
     sss.loadAndRegisterSheet(uri, sss.AGENT_SHEET);
 
-    document.getElementById("vertical-toolbar-toolbox").addEventListener("DOMMouseScroll", function(e) {
-        e = window.event || e;
+    var contentDeck = document.getElementById("content-deck");
+
+    toolbox.addEventListener("DOMMouseScroll", function(e) {
         var delta = Math.max(-1, Math.min(1, e.detail));
-        document.getElementById("vertical-toolbar-toolbox").scrollLeft -= (delta*20); //Change this value if you find the vertical scrolling is too fast or too slow
+        toolbox.scrollLeft -= (delta*40); //Change this value if you find the vertical scrolling is too fast or too slow
+        if (toolbox.style.width != contentDeck.clientHeight + "px") {
+            toolbox.style.width = contentDeck.clientHeight + "px";
+        }
         e.preventDefault();
     }, false);
+
+    window.addEventListener("resize", function() {
+        toolbox.style.width = contentDeck.clientHeight + "px";
+    });
 
 })();
