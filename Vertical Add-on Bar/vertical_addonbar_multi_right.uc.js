@@ -25,7 +25,7 @@ you can find a color picker to hex code in this link:
 https://www.w3schools.com/colors/colors_picker.asp */
 --vertical-toolbar-color: #202020;
 --vertical-toolbar-space-height: 10px;
---vertical-toolbar-col-overflow: 2;
+--vertical-toolbar-col-overflow: 2; /* Number of columns on maximized */
 --vertical-toolbar-icon-max-width: 24px; /* Should always be smaller than the toolbar width */
 }
 
@@ -37,6 +37,10 @@ filter: invert(65%) !important;
 /*---*/
 
 #content-deck {
+border-right: var(--vertical-toolbar-width) solid var(--vertical-toolbar-color) !important;
+}
+
+#main-window[sizemode="maximized"] #content-deck {
 border-right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) solid var(--vertical-toolbar-color) !important;
 }
 
@@ -51,44 +55,39 @@ visibility: collapse !important;
 #vertical-toolbar-toolbox  {
 direction: rtl !important;
 position: fixed !important;
-right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
+right: var(--vertical-toolbar-width) !important;
 transform-origin: top right !important;
 transform: rotate(-90deg) !important;
 background-color: var(--vertical-toolbar-color) !important;
+height:var(--vertical-toolbar-width) !important;
+}
+
+#main-window[sizemode="maximized"] #vertical-toolbar-toolbox  {
+right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 }
 
 #vertical-toolbar {
 -moz-appearance: toolbar!important;
 padding-inline-start: var(--vertical-toolbar-space-height);
+height: var(--vertical-toolbar-width) !important;
+}
+
+#main-window[sizemode="maximized"] #vertical-toolbar {
 height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
 }
+
 #vertical-toolbar toolbarbutton {
 -moz-appearance: toolbarbutton!important;
-/* With space height value higher than 0 with mul col,
-or when you use mul col and have problems with icons on hover,
-disable this */
 --toolbarbutton-inner-padding: 2px !important;
 /*---*/
 transform: rotate(90deg) !important;
 transform-origin: 50% 50% !important;
-width: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
-margin-left: var(--vertical-toolbar-space-height) !important;
-}
-
-#main-window[sizemode="maximized"] #vertical-toolbar toolbarbutton {
--moz-appearance: toolbarbutton!important;
 width: var(--vertical-toolbar-width) !important;
 margin-left: var(--vertical-toolbar-space-height) !important;
 }
 
 #vertical-toolbar toolbarbutton .toolbarbutton-icon {
-width: var(--vertical-toolbar-icon-max-width) !important;
-height: var(--vertical-toolbar-icon-max-width) !important;
-background-color: transparent !important;
-}
-
-#main-window[sizemode="maximized"] #vertical-toolbar toolbarbutton .toolbarbutton-icon {
 width: var(--vertical-toolbar-icon-max-width) !important;
 height: var(--vertical-toolbar-icon-max-width) !important;
 background-color: transparent !important;
