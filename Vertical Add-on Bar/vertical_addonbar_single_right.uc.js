@@ -1,4 +1,5 @@
 //vertical_addonbar.uc.js
+//Right + Single column only
 (function() {
     if (location != "chrome://browser/content/browser.xul") return;
 
@@ -54,9 +55,10 @@ transform: rotate(-90deg) !important;
 background-color: var(--vertical-toolbar-color) !important;
 }
 #vertical-toolbar {
--moz-appearance: toolbar!important;
+-moz-appearance: toolbar!important; /* Remove this if your custom color won't apply */
 padding-inline-start: var(--vertical-toolbar-space-height);
 height: var(--vertical-toolbar-width) !important;
+background-color: var(--vertical-toolbar-color) !important;
 }
 #vertical-toolbar toolbarbutton {
 -moz-appearance: toolbarbutton!important;
