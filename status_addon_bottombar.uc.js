@@ -1,3 +1,7 @@
+//Original code is from 
+//https://github.com/Endor8/userChrome.js/blob/master/Firefox-57/RevertAddonBarStatusBar.uc.js
+//All credit goes to Endor8
+
 (function() {
     if (location != "chrome://browser/content/browser.xul") return;
 
