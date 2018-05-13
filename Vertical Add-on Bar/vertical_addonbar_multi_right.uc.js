@@ -69,6 +69,7 @@ height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow
 }
 
 #vertical-toolbar {
+display: inline-flex !important;
 -moz-appearance: toolbar!important; /* Remove this if your custom color won't apply */
 padding-inline-start: var(--vertical-toolbar-space-height);
 height: var(--vertical-toolbar-width) !important;
