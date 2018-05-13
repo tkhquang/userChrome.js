@@ -18,6 +18,10 @@
     vbox.appendChild(toolbar);
     CustomizableUI.registerArea("bottom-toolbar", {legacy: true});
 
+//STYLING SECTION
+//You can put the css tweaks here inside your userChrome.css
+//then remove everthing leftof inside the section
+    
     var css = `
 :root {
 --bottom-toolbar-text-color: white;
@@ -87,5 +91,7 @@ display:none !important;
     var sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
     var uri = makeURI("data:text/css;charset=UTF=8," + encodeURIComponent(css));
     sss.loadAndRegisterSheet(uri, sss.AGENT_SHEET);
+
+//END OF STYLING SECTION
 
 })();
