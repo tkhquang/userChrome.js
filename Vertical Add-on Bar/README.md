@@ -58,7 +58,7 @@ The default config is for single column, if you want multiple columns then you h
 
 ## Can I just put the styling section in the script to userChrome.css?
 
-Yes and no, most of them can be put to userChrome.css and still work fine. But not anonymous contents like scrollbar (you can't style scrollbar with userChrome.css, sadly.
+Yes and no, most of them can be put to userChrome.css and still work fine. But not anonymous contents like scrollbar (you can't style scrollbar with userChrome.css, sadly).
 
 That mean you can move anything other things inside the ` `` ` which inside  `var css = ``;` to you userChrome.css, except this one:
 
