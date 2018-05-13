@@ -55,10 +55,10 @@ transform: rotate(90deg) !important;
 background-color: var(--vertical-toolbar-color) !important;
 }
 #vertical-toolbar {
--moz-appearance: toolbar!important; /* Remove this if your custom color won't apply */
+-moz-appearance: toolbar!important;
+display: inline-flex;
 padding-inline-start: var(--vertical-toolbar-space-height);
 height: var(--vertical-toolbar-width) !important;
-background-color: var(--vertical-toolbar-color) !important;
 }
 #vertical-toolbar toolbarbutton {
 -moz-appearance: toolbarbutton!important;
