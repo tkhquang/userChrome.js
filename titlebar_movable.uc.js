@@ -33,16 +33,18 @@
         });
     } catch(e) {}
 
-    function setPageTitle() {
+    var setPageTitle = function setPageTitle() {
+        if (document.getElementById('pagetitle-bar') === null) return;
         var pageTitle = document.getElementById('main-window').getAttribute('title');
-            //remove the - Mozilla Firefox at the end of the title, delete the below line if you don't want it
-            pageTitle = pageTitle.replace(/ - Mozilla Firefox$/, "");
-            //remove the - Mozilla Firefox (Private Browsing) in the title, delete the below line if you don't want it
-            pageTitle = pageTitle.replace(" - Mozilla Firefox (Private Browsing)", "");
-            document.getElementById('pagetitle-bar').setAttribute('titlepage', pageTitle);
-    }
+        //remove the - Mozilla Firefox at the end of the title, delete the below line if you don't want it
+        pageTitle = pageTitle.replace(/ - Mozilla Firefox$/, "");
+        //remove the - Mozilla Firefox (Private Browsing) in the title, delete the below line if you don't want it
+        pageTitle = pageTitle.replace(" - Mozilla Firefox (Private Browsing)", "");
+        document.getElementById('pagetitle-bar').setAttribute('titlepage', pageTitle);
+    };
     var observer = new MutationObserver(setPageTitle);
     observer.observe(document.getElementById('main-window'), { attributes: true, attributeFilter: ["title"] });
+
 
     Cu.import('resource://gre/modules/Services.jsm');
     var sss = Cc['@mozilla.org/content/style-sheet-service;1'].getService(Ci.nsIStyleSheetService);
