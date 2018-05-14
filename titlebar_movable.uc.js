@@ -35,11 +35,14 @@
 
     function setPageTitle() {
         var pageTitle = document.getElementById('main-window').getAttribute('title');
-        //remove the - Mozilla Firefox at the end of the title, delete the below line if you don't want it
-        pageTitle = pageTitle.replace(/ - Mozilla Firefox$/, "");
-        //remove the - Mozilla Firefox (Private Browsing) in the title, delete the below line if you don't want it
-        pageTitle = pageTitle.replace(" - Mozilla Firefox (Private Browsing)", "");
-        document.getElementById('pagetitle-bar').setAttribute('titlepage', pageTitle);
+        if (pageTitle) {
+            //remove the - Mozilla Firefox at the end of the title, delete the below line if you don't want it
+            pageTitle = pageTitle.replace(/ - Mozilla Firefox$/, "");
+            //remove the - Mozilla Firefox (Private Browsing) in the title, delete the below line if you don't want it
+            pageTitle = pageTitle.replace(" - Mozilla Firefox (Private Browsing)", "");
+            document.getElementById('pagetitle-bar').setAttribute('titlepage', pageTitle);
+        }
+        return;
     }
     var observer = new MutationObserver(setPageTitle);
     observer.observe(document.getElementById('main-window'), { attributes: true, attributeFilter: ["title"] });
@@ -79,7 +82,7 @@
     css += '}';
     css += '#main-window[customizing] #nav-bar #pagetitle-bar:after {';
     css += '  content: "Page Title Bar";';
-    css += '  margin-left: 10px;'
+    css += '  margin-left: 10px;';
     css += '  margin-right: 10px;';
     css += '}';
     var cssEnc = encodeURIComponent(css);
