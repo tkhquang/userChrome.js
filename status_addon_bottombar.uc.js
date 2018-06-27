@@ -54,7 +54,7 @@ direction: rtl;
 /*--*/
 }
 
-.browserContainer > statuspanel {
+.browserContainer > #statuspanel {
 background-color: transparent !important;
 left: 5px !important;
 bottom: 2px !important; /* Change this if you find the text too high or too low */
@@ -63,7 +63,7 @@ max-width: 50% !important; /* This is the max length of the status text on the t
 transition: none !important;
 }
 
-.browserContainer > statuspanel > .statuspanel-inner > .statuspanel-label {
+.browserContainer > #statuspanel > #statuspanel-inner > #statuspanel-label {
 background-color: transparent !important;
 margin-left: 0 !important;
 border: none !important;
@@ -71,21 +71,21 @@ padding: 0 !important;
 color: var(--bottom-toolbar-text-color) !important;
 }
 
-statuspanel[inactive] {
+#statuspanel[inactive] {
 opacity: 1 !important;
 }
 
-statuspanel[inactive] .statuspanel-inner::before {
+#statuspanel[inactive] #statuspanel-inner::before {
 content: "Done" !important;
 background-color:transparent !important;
 color: var(--bottom-toolbar-text-color) !important;
 }
 
-statuspanel[inactive] .statuspanel-label {
+#statuspanel[inactive] #statuspanel-label {
 opacity: 0 !important;
 }
 
-#main-window[inFullscreen="true"] statuspanel {
+#main-window[inFullscreen="true"] #statuspanel {
 display:none !important;
 }`;
     var sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
