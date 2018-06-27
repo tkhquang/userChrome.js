@@ -5,15 +5,15 @@
 (function() {
     if (location != "chrome://browser/content/browser.xul") return;
 
-    var toolbar = document.createElement("toolbar");
+    let toolbar = document.createElement("toolbar");
     toolbar.id = "bottom-toolbar";
     toolbar.setAttribute("customizable", "true");
     toolbar.setAttribute("mode", "icons");
     toolbar.setAttribute("context", "toolbar-context-menu");
 
-    var vbox = document.createElement("vbox");
+    let vbox = document.createElement("vbox");
     vbox.id = "bottom-toolbar-vbox";
-    var browserBottombox = document.getElementById("browser-bottombox");
+    let browserBottombox = document.getElementById("browser-bottombox");
     browserBottombox.parentNode.insertBefore(vbox, browserBottombox);
     vbox.appendChild(toolbar);
     CustomizableUI.registerArea("bottom-toolbar", {legacy: true});
