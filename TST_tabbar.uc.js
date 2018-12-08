@@ -1,15 +1,20 @@
-//Auto hide tab bar only when Tree Style Tab sidebar is selected and visible.
+//Auto hide tab bar only when Tab Center Redux sidebar is selected and visible.
 
-(function() {
-    var tabbar = document.getElementById("TabsToolbar");
+(function () {
+	"use strict";
+
+    const tabbar = document.getElementById("TabsToolbar");
     function showHideTabbar() {
-        var sidebarBox = document.getElementById("sidebar-box");
-        var sidebarTST = sidebarBox.getAttribute("sidebarcommand");
-        if (!sidebarBox.hidden && sidebarTST === "treestyletab_piro_sakura_ne_jp-sidebar-action") {
-            tabbar.style.visibility = "collapse";
-        }
-        else tabbar.style.visibility = "visible";
+        const sidebarBox = document.getElementById("sidebar-box");
+        const sidebarCommand = sidebarBox.getAttribute("sidebarcommand");
+        tabbar.style.visibility = (
+        	(!sidebarBox.hidden && sidebarCommand === "treestyletab_piro_sakura_ne_jp-sidebar-action") ? "collapse" : "visible");
     }
-    var observer = new MutationObserver(showHideTabbar);
-    observer.observe(document.getElementById("sidebar-box"), { attributes: true, attributeFilter: ["sidebarcommand", "hidden"] });
-})();
+    const observer = new MutationObserver(showHideTabbar);
+    observer.observe(document.getElementById("sidebar-box"), {
+    	attributes: true,
+    	attributeFilter: [
+    	"sidebarcommand",
+    	"hidden"]
+    });
+}());
