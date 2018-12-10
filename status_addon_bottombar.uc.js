@@ -37,7 +37,6 @@
 }
 
 #bottom-toolbar-vbox {
--moz-window-dragging: drag;
 background-color: rgb(var(--bottom-toolbar-background-color));
 height: auto;
 display: inline-flex;
@@ -51,6 +50,7 @@ flex: 0 0 auto;
 position: relative;
 display: inline-flex;
 height: auto;
+width: 100%;
 min-height: 100%;
 align-items: center;
 justify-content: flex-end;
@@ -61,7 +61,7 @@ justify-content: flex-end;
 --toolbarbutton-inner-padding: var(--button-padding) !important;
 --toolbarbutton-outer-padding: 0px !important;
 margin: var(--button-space-vertial) var(--button-space-horizontal) !important;
-flex: 1 0 auto;
+flex: 0 0 auto;
 }
 
 #bottom-toolbar toolbarbutton:hover {
