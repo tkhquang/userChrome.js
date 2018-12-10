@@ -1,4 +1,4 @@
-//Auto hide tab bar only when Tab Center Redux sidebar is selected and visible.
+//Auto hide tab bar only when Tree Style Tab sidebar is selected and visible.
 
 (function () {
     "use strict";
