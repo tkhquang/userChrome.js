@@ -1,33 +1,49 @@
 //vertical_addonbar.uc.js
-//Left + Multi columns on window maximized 
-(function() {
-    if (location != "chrome://browser/content/browser.xul") return;
+//Left + Multi columns on window maximized
 
-    var toolbar = document.createElement("toolbar");
+(function () {
+    if (location != "chrome://browser/content/browser.xul") {
+        return;
+    }
+
+    const toolbar = document.createElement("toolbar");
     toolbar.id = "vertical-toolbar";
-    toolbar.setAttribute("customizable", "true");
-    toolbar.setAttribute("mode", "icons");
-    toolbar.setAttribute("context", "toolbar-context-menu");
+    const props = {
+        customizable: true,
+        mode: "icons",
+        context: "toolbar-context-menu"
+    };
+    toolbar.id = "vertical-toolbar";
+    Object.entries(props).forEach(
+        ([key, value]) => toolbar.setAttribute(key, value)
+    );
 
-    var toolbox = document.createElement("toolbox");
+    const toolbox = document.createElement("toolbox");
     toolbox.id = "vertical-toolbar-toolbox";
-    var navToolBox = document.getElementById("navigator-toolbox");
+    const navToolBox = document.getElementById("navigator-toolbox");
     navToolBox.parentNode.insertBefore(toolbox, navToolBox.nextSibling);
     toolbox.appendChild(toolbar);
     CustomizableUI.registerArea("vertical-toolbar", {
         legacy: true
     });
 
-    var css = `
-:root {
---vertical-toolbar-width: 34px;
+    const css = `
 /* Change the below to the color you need,
 you can find a color picker to hex code in this link:
-https://www.w3schools.com/colors/colors_picker.asp */
---vertical-toolbar-color: #202020;
---vertical-toolbar-space-height: 10px;
---vertical-toolbar-col-overflow: 2; /* Number of columns on maximized */
---vertical-toolbar-icon-max-width: 24px; /* Should always be smaller than the toolbar width */
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Colors/Color_picker_tool */
+
+:root {
+--vt-width: 20px; /* For each column, not yet to plus the space */
+--vt-space-width: 15px; /* Add extra width to the vertical toolbar, so that it won't look tied and crowded */
+--vt-space-height: 5px; /* Vertical space between the buttons */
+--vt-button-padding: 10px; /* Basically increase the size of the buttons, should be smaller than space-width/2 in most cases */
+--vt-columns: 2; /* Number of the columns */
+--vt-color: rgb(32, 32, 32); /* Background color of the tooldbar */
+--vt-hover-color: rgba(122, 122, 122, 0.5);
+--vt-active-color: rgba(222, 122, 122, 0.5);
+--vt-active-hover-color: rgba(155, 122, 122, 0.5);
+
+--vt-space-width-total: calc(var(--vt-space-width) * (var(--vt-columns) +  1)); /* Don't change this */
 }
 
 /* If you harly see the icon,
@@ -38,11 +54,7 @@ filter: invert(65%) !important;
 /*---*/
 
 #content-deck {
-border-left: var(--vertical-toolbar-width) solid var(--vertical-toolbar-color) !important;
-}
-
-#main-window[sizemode="maximized"] #content-deck {
-border-left: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) solid var(--vertical-toolbar-color) !important;
+border-left: calc(var(--vt-space-width-total) + var(--vt-width) * var(--vt-columns)) solid var(--vt-color) !important;
 }
 
 #main-window[inFullscreen="true"] #content-deck {
@@ -53,106 +65,94 @@ border-left: 0 !important;
 visibility: collapse !important;
 }
 
-#vertical-toolbar-toolbox  {
-direction: ltr !important;
-position: fixed !important;
-left: var(--vertical-toolbar-width) !important;
-transform-origin: top left !important;
-transform: rotate(90deg) !important;
-background-color: var(--vertical-toolbar-color) !important;
-height:var(--vertical-toolbar-width) !important;
-}
-
-#main-window[sizemode="maximized"] #vertical-toolbar-toolbox  {
-left: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
-height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
+#vertical-toolbar-toolbox {
+position: fixed;
+left: calc(var(--vt-width) * var(--vt-columns) + var(--vt-space-width-total));
+height: calc(var(--vt-width) * var(--vt-columns) + var(--vt-space-width-total));
+transform-origin: top left;
+transform: rotate(90deg);
+background-color: var(--vt-color);
+display: inline-flex;
+flex-direction: row;
 }
 
 #vertical-toolbar {
-display: inline-flex !important;
--moz-appearance: toolbar!important; /* Remove this if your custom color won't apply */
-padding-inline-start: var(--vertical-toolbar-space-height);
-height: var(--vertical-toolbar-width) !important;
-background-color: var(--vertical-toolbar-color) !important;
-}
-
-#main-window[sizemode="maximized"] #vertical-toolbar {
-height: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) !important;
+position: relative;
+-moz-appearance: toolbar !important;
+display: inline-flex;
+width: 100%;
+height: 100%;
+flex-direction: row;
+justify-content: flex-start;
+align-content: space-evenly;
+align-items: center;
+flex: 0 0 auto;
+flex-wrap: wrap;
 }
 
 #vertical-toolbar toolbarbutton {
--moz-appearance: toolbarbutton!important;
---toolbarbutton-inner-padding: 2px !important;
-/*---*/
-transform: rotate(-90deg) !important;
-transform-origin: 50% 50% !important;
-width: var(--vertical-toolbar-width) !important;
-margin-right: var(--vertical-toolbar-space-height) !important;
+-moz-appearance: toolbarbutton !important;
+--toolbarbutton-inner-padding: var(--vt-button-padding) !important;
+--toolbarbutton-outer-padding: 0px !important;
+--toolbarbutton-hover-background: var(--vt-hover-color) !important;
+--toolbarbutton-active-background: var(--vt-active-color) !important;
+transform: rotate(-90deg);
+transform-origin: 50% 50%;
+flex: 0 0 auto;
+margin: 0 var(--vt-space-height) !important;
 }
 
-#vertical-toolbar toolbarbutton .toolbarbutton-icon {
-width: var(--vertical-toolbar-icon-max-width) !important;
-height: var(--vertical-toolbar-icon-max-width) !important;
-background-color: transparent !important;
+#vertical-toolbar .toolbaritem-combined-buttons {
+display: inline-flex !important;
+justify-content: center;
+align-items: center;
 }
 
-/* This transforms flexiple spaces to seperators
-when put into the vertical bar, but I don't recommend this,
-since that means you can't use flexiple spaces on ver bar anymore
-FYI, you can create seperators quite easily:
-http://forums.mozillazine.org/viewtopic.php?f=38&t=3037911 *//*
-
-#vertical-toolbar toolbarspring {
-background: transparent !important;
-max-width: 0px !important;
-min-width: 0px !important;
-width: 0px !important;
-border-left: 1px solid white !important;
-border-right: 1px solid black !important;
-margin-top: 4px !important;
-margin-bottom: 4px !important;
-margin-left: 3px !important;
-margin-right: 3px !important;
+#vertical-toolbar .toolbaritem-combined-buttons toolbarbutton {
+flex: 0 1 auto;
 }
 
-/* This edit the width of the flexiple spaces when put into vertical bar,
-choose between this and the above one,
-or nothing at all */
-
-#vertical-toolbar toolbarspring {
-background: transparent !important;
-width: 20px !important;
+#vertical-toolbar toolbarbutton:hover {
+--toolbarbutton-active-background: var(--vt-active-hover-color) !important;
 }
 
-#main-window[sizemode="maximized"] #vertical-toolbar {
-display: flex !important;
-flex-wrap: wrap !important;
+#main-window[sizemode="normal"] {
+--vt-columns: 1;
+}
+
+#main-window[sizemode="normal"] #vertical-toolbar {
+flex-wrap: nowrap
 }
 
 #main-window[sizemode="normal"] #vertical-toolbar-toolbox {
-overflow: scroll!important;
+overflow-x: scroll;
+overflow-y: hidden;
 }
 
 #vertical-toolbar-toolbox scrollbar {
-display: none!important;
+display: none !important;
 }`;
-    var sss = Cc['@mozilla.org/content/style-sheet-service;1'].getService(Ci.nsIStyleSheetService);
-    var uri = makeURI('data:text/css;charset=UTF=8,' + encodeURIComponent(css));
+    const sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
+    const uri = makeURI("data:text/css;charset=UTF=8," + encodeURIComponent(css));
     sss.loadAndRegisterSheet(uri, sss.AGENT_SHEET);
 
-    var contentDeck = document.getElementById("content-deck");
+    function scrollAlter() {
+        "use strict";
 
-    toolbox.addEventListener("DOMMouseScroll", function(e) {
-        var delta = Math.max(-1, Math.min(1, -e.detail));
-        toolbox.scrollLeft -= (delta*40); //Change this value if you find the vertical scrolling is too fast or too slow
-        if (toolbox.style.width != contentDeck.clientHeight + "px") {
+        const contentDeck = document.getElementById("content-deck");
+
+        toolbox.addEventListener("DOMMouseScroll", function (e) {
+            const delta = Math.max(-1, Math.min(1, -e.detail));
+            toolbox.scrollLeft -= (delta * 40); //Change this value if you find the vertical scrolling is too fast or too slow
+            if (toolbox.style.width != contentDeck.clientHeight + "px") {
+                toolbox.style.width = contentDeck.clientHeight + "px";
+            }
+            e.preventDefault();
+        }, false);
+
+        window.addEventListener("resize", function () {
             toolbox.style.width = contentDeck.clientHeight + "px";
-        }
-        e.preventDefault();
-    }, false);
-
-    window.addEventListener("resize", function() {
-        toolbox.style.width = contentDeck.clientHeight + "px";
-    });
-
+        });
+    }
+    scrollAlter();
 })();
