@@ -33,14 +33,16 @@ you can find a color picker to hex code in this link:
 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Colors/Color_picker_tool */
 
 :root {
---vertical-toolbar-width: 24px; /* REAL WIDTH = the below space width x2 + this value*/
---vertical-toolbar-space-width: 5px;
---vertical-toolbar-space-height: 10px; /* Vertical space between the buttons */
---vertical-toolbar-button-padding: 5px; /* Must be lower than space width x2 */
---vertical-toolbar-color: rgb(32, 32, 32);
---vertical-toolbar-hover-color: rgba(122, 122, 122, 0.5);
---vertical-toolbar-active-color: rgba(222, 122, 122, 0.5);
---vertical-toolbar-active-hover-color: rgba(155, 122, 122, 0.5);
+--vt-width: 20px; /* Not yet to plus the space */
+--vt-space-width: 10px; /* Add extra width to the vertical toolbar, so that it won't look tied and crowded */
+--vt-space-height: 5px; /* Vertical space between the buttons */
+--vt-button-padding: 10px; /* Basically increase the size of the buttons, should be smaller than space-width/2 in most cases */
+--vt-color: rgb(32, 32, 32); /* Background color of the tooldbar */
+--vt-hover-color: rgba(122, 122, 122, 0.5);
+--vt-active-color: rgba(222, 122, 122, 0.5);
+--vt-active-hover-color: rgba(155, 122, 122, 0.5);
+
+--vt-space-width-total: calc(var(--vt-space-width) * 2); /* Don't change this */
 }
 
 /* If you harly see the icon,
@@ -51,7 +53,7 @@ filter: invert(65%) !important;
 /*---*/
 
 #content-deck {
-border-left: calc(var(--vertical-toolbar-space-width) * 2 + var(--vertical-toolbar-width)) solid var(--vertical-toolbar-color) !important;
+border-left: calc(var(--vt-space-width-total) + var(--vt-width)) solid var(--vt-color) !important;
 }
 
 #main-window[inFullscreen="true"] #content-deck {
@@ -64,43 +66,52 @@ visibility: collapse !important;
 
 #vertical-toolbar-toolbox {
 position: fixed;
-left: calc(var(--vertical-toolbar-space-width) * 2 + var(--vertical-toolbar-width));
-height: calc(var(--vertical-toolbar-space-width) * 2 + var(--vertical-toolbar-width));
+left: calc(var(--vt-width) + var(--vt-space-width-total));
+height: calc(var(--vt-width) + var(--vt-space-width-total));
 transform-origin: top left;
 transform: rotate(90deg);
-background-color: var(--vertical-toolbar-color);
+background-color: var(--vt-color);
 display: inline-flex;
 flex-direction: row;
-justify-content: flex-start;
-align-items: center;
 }
 
 #vertical-toolbar {
 position: relative;
 -moz-appearance: toolbar !important;
 display: inline-flex;
-height: var(--vertical-toolbar-width);
 width: 100%;
+height: 100%;
 flex-direction: row;
 justify-content: flex-start;
+align-content: space-evenly;
 align-items: center;
 flex: 0 0 auto;
 }
 
 #vertical-toolbar toolbarbutton {
 -moz-appearance: toolbarbutton !important;
---toolbarbutton-inner-padding: var(--vertical-toolbar-button-padding) !important;
+--toolbarbutton-inner-padding: var(--vt-button-padding) !important;
 --toolbarbutton-outer-padding: 0px !important;
---toolbarbutton-hover-background: var(--vertical-toolbar-hover-color) !important;
---toolbarbutton-active-background: var(--vertical-toolbar-active-color) !important;
+--toolbarbutton-hover-background: var(--vt-hover-color) !important;
+--toolbarbutton-active-background: var(--vt-active-color) !important;
 transform: rotate(-90deg);
 transform-origin: 50% 50%;
 flex: 0 0 auto;
-margin: 0 var(--vertical-toolbar-space-height) !important;
+margin: 0 var(--vt-space-height) !important;
+}
+
+#vertical-toolbar .toolbaritem-combined-buttons {
+display: inline-flex !important;
+justify-content: center;
+align-items: center;
+}
+
+#vertical-toolbar .toolbaritem-combined-buttons toolbarbutton {
+flex: 0 1 auto;
 }
 
 #vertical-toolbar toolbarbutton:hover {
---toolbarbutton-active-background: var(--vertical-toolbar-active-hover-color) !important;
+--toolbarbutton-active-background: var(--vt-active-hover-color) !important;
 }
 
 #vertical-toolbar-toolbox {
@@ -120,20 +131,18 @@ display: none !important;
 
         const contentDeck = document.getElementById("content-deck");
 
-        toolbox.addEventListener("DOMMouseScroll", function(e) {
+        toolbox.addEventListener("DOMMouseScroll", function (e) {
             const delta = Math.max(-1, Math.min(1, -e.detail));
-            toolbox.scrollLeft -= (delta*40); //Change this value if you find the vertical scrolling is too fast or too slow
+            toolbox.scrollLeft -= (delta * 40); //Change this value if you find the vertical scrolling is too fast or too slow
             if (toolbox.style.width != contentDeck.clientHeight + "px") {
                 toolbox.style.width = contentDeck.clientHeight + "px";
             }
             e.preventDefault();
         }, false);
 
-        window.addEventListener("resize", function() {
+        window.addEventListener("resize", function () {
             toolbox.style.width = contentDeck.clientHeight + "px";
         });
     }
-
     scrollAlter();
-
 })();
