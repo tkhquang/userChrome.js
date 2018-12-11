@@ -134,7 +134,7 @@ display: none !important;
 
         toolbox.addEventListener("DOMMouseScroll", function (e) {
             const delta = Math.max(-1, Math.min(1, -e.detail));
-            toolbox.scrollLeft -= (delta * 40); //Change this value if you find the vertical scrolling is too fast or too slow
+            toolbox.scrollLeft += (delta * 40); //Change this value if you find the vertical scrolling is too fast or too slow
             if (toolbox.style.width != contentDeck.clientHeight + "px") {
                 toolbox.style.width = contentDeck.clientHeight + "px";
             }
