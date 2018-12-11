@@ -1,4 +1,4 @@
-# Vertical Add-on Bar for firefox 60
+# Vertical Add-on Bar for firefox 60-63
 
 
 **Single Column**
