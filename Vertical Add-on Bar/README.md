@@ -50,17 +50,15 @@ And
 
         /*---Comment----*/
         
-That said. you will stll have to be careful about the opening tags, and closing tags `{  }`, otherwise your custom style would be messed up.
+That said. you will still have to be careful about the opening tags, and closing tags `{  }`, otherwise your custom style would be messed up.
 
 Basically, everything is explained in the script itself, but at least you should change the things in the `:root {}` block to suite your needs.
-
-The default config is for single column, if you want multiple columns then you have to change some rules under that (just comment out the rules for single column then remove the `/*` at the beginning of the rules for multiple columns as stated above.
 
 ## Can I just put the styling section in the script to userChrome.css?
 
 Yes and no, most of them can be put to userChrome.css and still work fine. But not anonymous contents like scrollbar (you can't style scrollbar with userChrome.css, sadly).
 
-That mean you can move anything other things inside the ` `` ` which inside  `var css = ``;` to you userChrome.css, except this one:
+That mean you can move anything other things inside the ` `` ` which inside  `const css = ``;` to you userChrome.css, except this one:
 
     #vertical-toolbar-toolbox scrollbar {
     display: none!important;
@@ -73,30 +71,9 @@ Here are some known issues on my end:
 
 1. Sometimes when dragging the buttons in `customzing` from vertical toolbar to the out side, the whole toolbar is dragged outside. But don't worry, just restart the browser and everything will be there again, phewww! I'm not sure if there is a way to prevent it from happening, but since you can just redo it again, no harm done, just inconvenient.
 
-2. Since this is just a trick to transform the horizital toolbar into a vertical one, some toolbarbuttons which have its own popup menus (such as Multi-acc container, history, forget,...) not working so good and can cause problem sometimes when we click on it, the popup menu doesn't popup in the right places we want, or, it won't popup at all. My suggestion: don't put those toolbar buttons on the vertical toolbar, or, you can put them on the top of the toolbar. The other one-click activate/disactivate ones work fine on the toolbar it seems. The problem doesn't seem to happen if we use `vertical_addonbar_testing.uc.js`. But it has its own issues as well, check out the below section.
+2. Since this is just a trick to transform the horizontal toolbar into a vertical one, some toolbarbuttons which have its own popup menus (such as Multi-acc container, history, forget,...) don't work so good and can cause problem sometimes when we click on it, the popup menu doesn't popup in the right places we want, or, it won't popup at all. My suggestion: don't put those toolbar buttons on the vertical toolbar, or, you can put them on the top of the toolbar. The other one-click activate/disactivate ones work fine on the toolbar it seems. The problem doesn't seem to happen if we use `vertical_addonbar_testing.uc.js`. But it has its own issues as well, check out the below section.
 
 3. I can't seem to find a way for multiple columns to work fine when the height of the toolbar changes dynamically, so I just make multiple columns appear on the browser window maximized only. When not, it becomes a single column one.
-
-You can just disable the toolbar when the window is not maximized.
-
-Replace (or remove if `#main-window[sizemode="maximized"] #content-deck` already there)
-
-          #content-deck {
-          border-right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) solid var(--vertical-toolbar-color) !important;
-          }
-
-with these lines (if you're using left side toolbar, it's `border-left` instead)
-
-          #main-window[sizemode="maximized"] #content-deck {
-          border-right: calc(var(--vertical-toolbar-width) * var(--vertical-toolbar-col-overflow)) solid var(--vertical-toolbar-color) !important;
-          }
-
-and add this
-
-          #main-window[sizemode="normal"] #vertical-toolbar-toolbox {
-          visibility: collapse!important;
-          }
-
 
 ## About the file `vertical_addonbar_testing.uc.js`
 
