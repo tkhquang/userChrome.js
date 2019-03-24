@@ -26,7 +26,7 @@
     CustomizableUI.registerArea("bottom-toolbar", {
         legacy: true
     });
-
+    CustomizableUI.registerToolbarNode(toolbar);
     const css = `
 :root {
 --bottom-toolbar-text-color: 220, 220, 220; /* Color in decimal RGB */
