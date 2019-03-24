@@ -26,6 +26,7 @@
     CustomizableUI.registerArea("vertical-toolbar", {
         legacy: true
     });
+    CustomizableUI.registerToolbarNode(toolbar);
 
     const css = `
 /* Change the below to the color you need,

@@ -22,6 +22,7 @@
 
     toolbox.appendChild(toolbar);
     CustomizableUI.registerArea("vertical-toolbar", { legacy: true });
+    CustomizableUI.registerToolbarNode(toolbar);
 
     var css =`
 :root {

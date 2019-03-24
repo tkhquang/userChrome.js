@@ -1,5 +1,5 @@
 # userChrome.js for Mozilla Firefox
-*The Scripts were tested on Firefox 59 stable build.*
+*The Scripts were tested on Firefox 66 stable build.*
 
 [**Vertical Add-on Toolbar**](https://github.com/tkhquang/userChrome.js/tree/master/Vertical%20Add-on%20Bar) --- [**Single Column with scrolling**](https://i.imgur.com/RgxgWbK.gifv), [**Multiple Columns**](https://i.imgur.com/ViDnQcc.jpg)
 
