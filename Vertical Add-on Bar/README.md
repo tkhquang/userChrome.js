@@ -1,5 +1,8 @@
 # Vertical Add-on Bar for firefox 60-63
 
+## There is a known bug which causes blank window when using this script in latest version of Firefox.
+
+## You can try this [Aris-t2's script](https://github.com/Aris-t2/CustomJSforFx/blob/master/scripts/addonbar_vertical.uc.js) instead
 
 **Single Column**
 
@@ -61,7 +64,7 @@ Yes and no, most of them can be put to userChrome.css and still work fine. But n
 That mean you can move anything other things inside the ` `` ` which inside  `const css = ``;` to you userChrome.css, except this one:
 
     #vertical-toolbar-toolbox scrollbar {
-    display: none!important;
+      display: none!important;
     }
 
 ## Issues
@@ -81,4 +84,4 @@ That script is to create a toolbar that is actually vertical, you can put it bef
 
 Alternately, you can replace the main file (after the you have put the items you want to the toolbar) with this file. Since I've made the 2 scripts that create the toolbars which share the same id, after replacing the file, the items are gonna stay there.
 
-**By the way, ONLY use ONE of the files at a time.**
+**ONLY use ONE of the files at a time.**

@@ -2,159 +2,159 @@
 //Right + Multi columns on window maximized
 
 (function () {
-    if (location != "chrome://browser/content/browser.xul") {
-        return;
-    }
+  if (location != "chrome://browser/content/browser.xul" && location != "chrome://browser/content/browser.xhtml") {
+    return;
+  }
 
-    const toolbar = document.createElement("toolbar");
-    toolbar.id = "vertical-toolbar";
-    const props = {
-        customizable: true,
-        mode: "icons",
-        context: "toolbar-context-menu"
-    };
-    toolbar.id = "vertical-toolbar";
-    Object.entries(props).forEach(
-        ([key, value]) => toolbar.setAttribute(key, value)
-    );
+  const toolbar = document.createElement("toolbar");
+  toolbar.id = "vertical-toolbar";
+  const props = {
+    customizable: true,
+    mode: "icons",
+    context: "toolbar-context-menu"
+  };
+  Object.entries(props).forEach(
+    ([key, value]) => toolbar.setAttribute(key, value)
+  );
 
-    const toolbox = document.createElement("toolbox");
-    toolbox.id = "vertical-toolbar-toolbox";
-    const navToolBox = document.getElementById("navigator-toolbox");
-    navToolBox.parentNode.insertBefore(toolbox, navToolBox.nextSibling);
-    toolbox.appendChild(toolbar);
-    CustomizableUI.registerArea("vertical-toolbar", {
-        legacy: true
-    });
-    CustomizableUI.registerToolbarNode(toolbar);
+  const toolbox = document.createElement("toolbox");
+  toolbox.id = "vertical-toolbar-toolbox";
+  const navToolBox = document.getElementById("navigator-toolbox");
+  navToolBox.parentNode.insertBefore(toolbox, navToolBox.nextSibling);
+  toolbox.appendChild(toolbar);
+  CustomizableUI.registerArea("vertical-toolbar", {
+    legacy: true
+  });
+  CustomizableUI.registerToolbarNode(toolbar);
 
-    const css = `
+  const css = `
 /* Change the below to the color you need,
 you can find a color picker to hex code in this link:
 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Colors/Color_picker_tool */
 
 :root {
---vt-width: 20px; /* For each column, not yet to plus the space */
---vt-space-width: 15px; /* Add extra width to the vertical toolbar, so that it won't look tied and crowded */
---vt-space-height: 5px; /* Vertical space between the buttons */
---vt-button-padding: 10px; /* Basically increase the size of the buttons, should be smaller than space-width/2 in most cases */
---vt-columns: 2; /* Number of the columns */
---vt-color: rgb(32, 32, 32); /* Background color of the tooldbar */
---vt-hover-color: rgba(122, 122, 122, 0.5);
---vt-active-color: rgba(222, 122, 122, 0.5);
---vt-active-hover-color: rgba(155, 122, 122, 0.5);
+  --vt-width: 20px; /* For each column, not yet to plus the space */
+  --vt-space-width: 15px; /* Add extra width to the vertical toolbar, so that it won't look tied and crowded */
+  --vt-space-height: 5px; /* Vertical space between the buttons */
+  --vt-button-padding: 10px; /* Basically increase the size of the buttons, should be smaller than space-width/2 in most cases */
+  --vt-columns: 2; /* Number of the columns */
+  --vt-color: rgb(32, 32, 32); /* Background color of the tooldbar */
+  --vt-hover-color: rgba(122, 122, 122, 0.5);
+  --vt-active-color: rgba(222, 122, 122, 0.5);
+  --vt-active-hover-color: rgba(155, 122, 122, 0.5);
 
---vt-space-width-total: calc(var(--vt-space-width) * (var(--vt-columns) +  1)); /* Don't change this */
+  --vt-space-width-total: calc(var(--vt-space-width) * (var(--vt-columns) +  1)); /* Don't change this */
 }
 
 /* If you harly see the icon,
 due to its color matchs the toolbar color, try this *//*
 #vertical-toolbar toolbarbutton {
-filter: invert(65%) !important;
+  filter: invert(65%) !important;
 }
 /*---*/
 
 #content-deck {
-border-right: calc(var(--vt-space-width-total) + var(--vt-width) * var(--vt-columns)) solid var(--vt-color) !important;
+  border-right: calc(var(--vt-space-width-total) + var(--vt-width) * var(--vt-columns)) solid var(--vt-color) !important;
 }
 
 #main-window[inFullscreen="true"] #content-deck {
-border-right: 0 !important;
+  border-right: 0 !important;
 }
 
 #main-window[inFullscreen="true"] #vertical-toolbar-toolbox {
-visibility: collapse !important;
+  visibility: collapse !important;
 }
 
 #vertical-toolbar-toolbox {
-direction: rtl;
-position: fixed;
-right: calc(var(--vt-width) * var(--vt-columns) + var(--vt-space-width-total));
-height: calc(var(--vt-width) * var(--vt-columns) + var(--vt-space-width-total));
-transform-origin: top right;
-transform: rotate(-90deg);
-background-color: var(--vt-color);
-display: inline-flex;
-flex-direction: row;
+  direction: rtl;
+  position: fixed;
+  right: calc(var(--vt-width) * var(--vt-columns) + var(--vt-space-width-total));
+  height: calc(var(--vt-width) * var(--vt-columns) + var(--vt-space-width-total));
+  transform-origin: top right;
+  transform: rotate(-90deg);
+  background-color: var(--vt-color);
+  display: inline-flex;
+  flex-direction: row;
 }
 
 #vertical-toolbar {
-position: relative;
--moz-appearance: toolbar !important;
-display: inline-flex;
-width: 100%;
-height: 100%;
-flex-direction: row;
-justify-content: flex-start;
-align-content: space-evenly;
-align-items: center;
-flex: 0 0 auto;
-flex-wrap: wrap;
+  position: relative;
+  -moz-appearance: toolbar !important;
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: space-evenly;
+  align-items: center;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
 }
 
 #vertical-toolbar toolbarbutton {
--moz-appearance: toolbarbutton !important;
---toolbarbutton-inner-padding: var(--vt-button-padding) !important;
---toolbarbutton-outer-padding: 0px !important;
---toolbarbutton-hover-background: var(--vt-hover-color) !important;
---toolbarbutton-active-background: var(--vt-active-color) !important;
-transform: rotate(90deg);
-transform-origin: 50% 50%;
-flex: 0 0 auto;
-margin: 0 var(--vt-space-height) !important;
+  -moz-appearance: toolbarbutton !important;
+  --toolbarbutton-inner-padding: var(--vt-button-padding) !important;
+  --toolbarbutton-outer-padding: 0px !important;
+  --toolbarbutton-hover-background: var(--vt-hover-color) !important;
+  --toolbarbutton-active-background: var(--vt-active-color) !important;
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
+  flex: 0 0 auto;
+  margin: 0 var(--vt-space-height) !important;
 }
 
 #vertical-toolbar .toolbaritem-combined-buttons {
-display: inline-flex !important;
-justify-content: center;
-align-items: center;
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
 }
 
 #vertical-toolbar .toolbaritem-combined-buttons toolbarbutton {
-flex: 0 1 auto;
+  flex: 0 1 auto;
 }
 
 #vertical-toolbar toolbarbutton:hover {
---toolbarbutton-active-background: var(--vt-active-hover-color) !important;
+  --toolbarbutton-active-background: var(--vt-active-hover-color) !important;
 }
 
 #main-window[sizemode="normal"] {
---vt-columns: 1;
+  --vt-columns: 1;
 }
 
 #main-window[sizemode="normal"] #vertical-toolbar {
-flex-wrap: nowrap
+  flex-wrap: nowrap
 }
 
 #main-window[sizemode="normal"] #vertical-toolbar-toolbox {
-overflow-x: scroll;
-overflow-y: hidden;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 #vertical-toolbar-toolbox scrollbar {
-display: none !important;
+  display: none !important;
 }`;
-    const sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
-    const uri = makeURI("data:text/css;charset=UTF=8," + encodeURIComponent(css));
-    sss.loadAndRegisterSheet(uri, sss.AGENT_SHEET);
 
-    function scrollAlter() {
-        "use strict";
+  const sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
+  const uri = makeURI("data:text/css;charset=UTF=8," + encodeURIComponent(css));
+  sss.loadAndRegisterSheet(uri, sss.AGENT_SHEET);
 
-        const contentDeck = document.getElementById("content-deck");
+  function scrollAlter() {
+    "use strict";
 
-        toolbox.addEventListener("DOMMouseScroll", function (e) {
-            const delta = Math.max(-1, Math.min(1, -e.detail));
-            toolbox.scrollLeft += (delta * 40); //Change this value if you find the vertical scrolling is too fast or too slow
-            if (toolbox.style.width != contentDeck.clientHeight + "px") {
-                toolbox.style.width = contentDeck.clientHeight + "px";
-            }
-            e.preventDefault();
-        }, false);
+    const contentDeck = document.getElementById("content-deck");
 
-        window.addEventListener("resize", function () {
-            toolbox.style.width = contentDeck.clientHeight + "px";
-        });
-    }
-    scrollAlter();
+    toolbox.addEventListener("DOMMouseScroll", function (e) {
+      const delta = Math.max(-1, Math.min(1, -e.detail));
+      toolbox.scrollLeft += (delta * 40); //Change this value if you find the vertical scrolling is too fast or too slow
+      if (toolbox.style.width != contentDeck.clientHeight + "px") {
+        toolbox.style.width = contentDeck.clientHeight + "px";
+      }
+      e.preventDefault();
+    }, false);
+
+    window.addEventListener("resize", function () {
+      toolbox.style.width = contentDeck.clientHeight + "px";
+    });
+  }
+  scrollAlter();
 })();

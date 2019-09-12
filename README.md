@@ -1,5 +1,5 @@
 # userChrome.js for Mozilla Firefox
-*The Scripts were tested on Firefox 66 stable build.*
+*The Scripts were tested on Firefox 69 stable build.*
 
 [**Vertical Add-on Toolbar**](https://github.com/tkhquang/userChrome.js/tree/master/Vertical%20Add-on%20Bar) --- [**Single Column with scrolling**](https://i.imgur.com/RgxgWbK.gifv), [**Multiple Columns**](https://i.imgur.com/ViDnQcc.jpg)
 
@@ -11,8 +11,10 @@
 
 [**Duplicate tab with double-click**](https://github.com/tkhquang/userChrome.js/blob/master/dblclickDuplicateTab.uc.js) --- [Direct](https://imgur.com/aTzL16F), [Background](https://imgur.com/eMVjBdU)
 
-### What is [userChrome.js](http://kb.mozillazine.org/UserChrome.js)?
+### What is userChrome.js?
+
+You can visit this [link](http://kb.mozillazine.org/UserChrome.js) to learn about userChrome.js
 
 ### So, how to add userChrome.js support to my Firefox?
-There are several ways to do so, I can't say [this](https://www.reddit.com/r/FirefoxCSS/comments/7jj3uy/how_to_add_userchromejs_support_with_just_css/) is the best way to do so, yet it's the easiest method obviously. My scripts were all tested under that method by the way. Also, if you are unfamiliar with `userChrome.css` (this and `userChrome.js` are 2 different things), you should take a look at these links: [info](https://www.reddit.com/r/firefox/wiki/userchrome), [how to](https://www.reddit.com/r/firefox/comments/6xtm69/creating_and_editing_userchromecss/).
+There are several ways to do so, I can't say [this](https://www.reddit.com/r/FirefoxCSS/comments/7jj3uy/how_to_add_userchromejs_support_with_just_css/) is the best way to do so, but it's the easiest method. My scripts were all tested under that method by the way. Also, if you are unfamiliar with `userChrome.css` (`userChrome.css` and `userChrome.js` are different), you should take a look at these links: [info](https://www.reddit.com/r/firefox/wiki/userchrome), [how to](https://www.reddit.com/r/firefox/comments/6xtm69/creating_and_editing_userchromecss/).
 
