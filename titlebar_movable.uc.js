@@ -5,43 +5,110 @@
 
 (function () {
 
-  if (location != "chrome://browser/content/browser.xul" && location != "chrome://browser/content/browser.xhtml") {
-    return;
-  }
-
+  const initTitle = "Mozilla Firefox";
   try {
+    Components.utils.import("resource:///modules/CustomizableUI.jsm");
+    const { Services } = Components.utils.import(
+      "resource://gre/modules/Services.jsm",
+      {}
+    );
+    const sss = Components.classes[
+      "@mozilla.org/content/style-sheet-service;1"
+    ].getService(Components.interfaces.nsIStyleSheetService);
+
     CustomizableUI.createWidget({
       id: "pagetitle-bar",
       type: "custom",
       defaultArea: CustomizableUI.AREA_NAVBAR,
-      onBuild: function(aDocument) {
-        const toolbaritem = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "toolbaritem");
-        const image = aDocument.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "image");
+      onBuild: function (aDocument) {
+        const toolbaritem = aDocument.createElementNS(
+          "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul",
+          "toolbaritem"
+        );
+        const image = aDocument.createElementNS(
+          "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul",
+          "image"
+        );
         image.setAttribute("src", "chrome://branding/content/icon16.png");
         image.id = "pagetitle-bar-image";
         const props = {
           id: "pagetitle-bar",
           class: "chromeclass-toolbar-additional",
-          titlepage: "",
-          tooltiptext: "",
+          titlepage: initTitle,
+          tooltiptext: initTitle,
           pack: "center",
           align: "center",
-          label: "Page Title Bar"
+          label: "Page Title Bar",
         };
         for (var p in props) {
           toolbaritem.setAttribute(p, props[p]);
         }
         toolbaritem.appendChild(image);
         return toolbaritem;
-      }
+      },
     });
-  } catch(e) {}
 
-  function setPageTitle () {
-    if (!document.getElementById("pagetitle-bar")) {
+    const styles = `
+      /* Movable titlebar */
+
+      :root {
+        --pagetitle-bar-width: 350px;
+      }
+
+      #main-window:not([customizing]) #pagetitle-bar {
+        -moz-window-dragging: drag;
+        background: transparent;
+        width: var(--pagetitle-bar-width);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin: 0 10px;
+      }
+
+      #main-window:not([customizing]) #pagetitle-bar::after {
+        -moz-window-dragging: no-drag;
+        content: attr(titlepage);
+      }
+
+      #main-window:not([customizing]) #pagetitle-bar-image {
+        display:none;
+      }
+
+      toolbarpaletteitem[place="palette"] > #pagetitle-bar {
+        width: 7em;
+        min-width: 7em;
+        height: 37px;
+      }
+
+      #main-window[customizing] #nav-bar #pagetitle-bar {
+        width: var(--pagetitle-bar-width);
+        margin: 0 10px;
+      }
+
+      #main-window[customizing] #nav-bar #pagetitle-bar-image {
+        display:none;
+      }
+
+      #main-window[customizing] #nav-bar #pagetitle-bar::after {
+        content: "Page Title Bar";
+      }
+    `;
+
+    const uri = Services.io.newURI(
+      "data:text/css;charset=utf-8," + encodeURIComponent(styles),
+      null,
+      null
+    );
+    sss.loadAndRegisterSheet(uri, sss.AGENT_SHEET);
+  } catch (e) {
+    Components.utils.reportError(e);
+  }
+
+  function setPageTitle() {
+    const pageTitleBar = document.getElementById("pagetitle-bar");
+    if (!pageTitleBar) {
       return;
     }
-    const pageTitleBar = document.getElementById("pagetitle-bar");
 
     let pageTitle = document.title;
     // remove the - Mozilla Firefox *** at the end of the title, comment out the lines below if you don't want it
@@ -50,65 +117,25 @@
       pageTitle = pageTitle.substr(0, index);
     }
     // -End
+
     pageTitleBar.setAttribute("titlepage", pageTitle);
     pageTitleBar.setAttribute("tooltiptext", pageTitle);
   }
 
+  const targetNode = document.querySelector("head > title");
   const observer = new MutationObserver(setPageTitle);
-  observer.observe(document.getElementById("main-window"), {
-    attributes: true,
-    attributeFilter: ["title"]
+
+  /*
+    textContent changes the child text node of the target.
+    According to MDN: https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
+    We only need to listen to childList changes
+  */
+  observer.observe(targetNode, {
+    attributes: false,
+    attributeOldValue: false,
+    characterData: false,
+    characterDataOldValue: false,
+    childList: true,
+    subtree: false,
   });
-
-  const css = `
-/* Movable titlebar */
-
-:root {
-  --pagetitle-bar-width: 350px;
-}
-
-#main-window:not([customizing]) #pagetitle-bar {
-  -moz-window-dragging: drag;
-  background: transparent;
-  width: var(--pagetitle-bar-width);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin: 0 10px;
-}
-
-#main-window:not([customizing]) #pagetitle-bar::after {
-  -moz-window-dragging: no-drag;
-  content: attr(titlepage);
-}
-
-#main-window:not([customizing]) #pagetitle-bar-image {
-  display:none;
-}
-
-toolbarpaletteitem[place="palette"] > #pagetitle-bar {
-  width: 7em;
-  min-width: 7em;
-  outline: 1px solid;
-  outline-offset: -8px;
-  opacity: .6;
-  height: 37px;
-}
-
-#main-window[customizing] #nav-bar #pagetitle-bar {
-  width: var(--pagetitle-bar-width);
-  margin: 0 10px;
-}
-
-#main-window[customizing] #nav-bar #pagetitle-bar-image {
-  display:none;
-}
-
-#main-window[customizing] #nav-bar #pagetitle-bar::after {
-  content: "Page Title Bar";
-}`;
-
-  const sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
-  const uri = makeURI("data:text/css;charset=UTF=8," + encodeURIComponent(css));
-  sss.loadAndRegisterSheet(uri, sss.AGENT_SHEET);
-}());
+})();
