@@ -66,7 +66,6 @@
       }
 
       #main-window:not([customizing]) #pagetitle-bar::after {
-        -moz-window-dragging: no-drag;
         content: attr(titlepage);
       }
 
