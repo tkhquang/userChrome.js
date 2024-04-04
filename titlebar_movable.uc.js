@@ -4,17 +4,13 @@
 // https://imgur.com/a/GHvgjzu
 
 (function () {
-
   const initTitle = "Mozilla Firefox";
   try {
     Components.utils.import("resource:///modules/CustomizableUI.jsm");
-    const { Services } = Components.utils.import(
-      "resource://gre/modules/Services.jsm",
-      {}
+    const Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
+    const sss = Components.classes["@mozilla.org/content/style-sheet-service;1"].getService(
+      Components.interfaces.nsIStyleSheetService
     );
-    const sss = Components.classes[
-      "@mozilla.org/content/style-sheet-service;1"
-    ].getService(Components.interfaces.nsIStyleSheetService);
 
     CustomizableUI.createWidget({
       id: "pagetitle-bar",
@@ -59,14 +55,14 @@
         -moz-window-dragging: drag;
         background: transparent;
         width: var(--pagetitle-bar-width);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         margin: 0 10px;
       }
 
       #main-window:not([customizing]) #pagetitle-bar::after {
         content: attr(titlepage);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       #main-window:not([customizing]) #pagetitle-bar-image {
@@ -93,11 +89,7 @@
       }
     `;
 
-    const uri = Services.io.newURI(
-      "data:text/css;charset=utf-8," + encodeURIComponent(styles),
-      null,
-      null
-    );
+    const uri = Services.io.newURI("data:text/css;charset=utf-8," + encodeURIComponent(styles), null, null);
     sss.loadAndRegisterSheet(uri, sss.AGENT_SHEET);
   } catch (e) {
     Components.utils.reportError(e);
@@ -111,7 +103,7 @@
 
     let pageTitle = document.title;
     // remove the - Mozilla Firefox *** at the end of the title, comment out the lines below if you don't want it
-    const index = pageTitle.lastIndexOf(" - ");
+    const index = pageTitle.lastIndexOf(" — ");
     if (index !== -1) {
       pageTitle = pageTitle.substr(0, index);
     }
